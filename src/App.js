@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import NavBar from "./components/layout/NavBar";
+import SideNavBar from "./components/layout/SideNavBar";
+import BackDrop from "./components/layout/BackDrop";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    sideBarOpen: false
+  };
+
+  handleOpen = () => {
+    this.setState({
+      sideBarOpen: true
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      sideBarOpen: false
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <NavBar open={this.handleOpen} />
+        {this.state.sideBarOpen ? (
+          <div>
+            <BackDrop close={this.handleClose} />{" "}
+          </div>
+        ) : null}
+        <SideNavBar close={this.handleClose} display={this.state.sideBarOpen} />
+        <div style={{ marginTop: "70px", marginLeft: "9px" }}>
+          <h3>Hello React Devs...</h3>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
